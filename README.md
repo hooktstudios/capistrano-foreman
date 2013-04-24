@@ -10,14 +10,19 @@ Capistrano tasks for foreman and upstart.
 
 Add this to your config/deploy.rb:
 
-    require "foreman/capistrano"
-    # Optional configurations for foreman CLI
-    set :foreman_options, { 
-      :env => '.env,.env.database',
-      :concurrency => '3
-    }
-    # Optional configuration for RVM
-    set :foreman_sudo, 'rvmsudo'
+```ruby
+require 'foreman/capistrano'
+
+# Defaults settings
+set :foreman_sudo, 'sudo' # Set to `rvmsudo` if using RVM
+set :foreman_upstart_path, '/etc/init/sites' # Set /etc/init/ if you do not have a sites folder
+set :foreman_upstart_prefix, '' # Set to ex. `foreman-` or `staging-` if you want to prefix jobs names
+set :foreman_options, {
+  :env => '.env,.env.database',
+  :concurrency => '3
+}
+```
+
 
 Remember to run ```cap foreman:export``` after changing the ENV variables.
 
